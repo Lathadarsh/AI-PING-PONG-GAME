@@ -168,11 +168,11 @@ function preload() {
 
 }
 function setup() {
-canvas=createCanvas(600,400);
+canvas=createCanvas(550,350);
 canvas.parent('canvas');
 
 video=createCapture(VIDEO);
-video.size(600,400);
+video.size(550,350);
 video.hide();
 
 posenet = ml5.poseNet(video, modelLoaded);
@@ -181,5 +181,5 @@ function modelLoaded() {
   console.log("Model is Loaded!");
 }
 function draw() {
-image(video,0,0,600,400);
+image(video,0,0,550,350);
 }
