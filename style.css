@@ -1,7 +1,4 @@
-body
-{
 
-}
 .heading{
     width:100%;
     text-align: left;
@@ -13,6 +10,15 @@ body
     float:right;
     border:1px solid white;
 }
-#start, #status{
-    font-size:22px;
+#start, #status, #restart{
+    font-size:18px;
+}
+p{
+    text-align: left;
+}
+h4{
+    width:100%;
+    background-color:whitesmoke;
+    line-height: 2px;
+    margin:0px;
 }
