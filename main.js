@@ -1,4 +1,6 @@
-
+rwristX = 0;
+rwristY = 0;
+score1=0;
 /*created by prashant shukla */
 
 var paddle2 =10,paddle1=10;
@@ -20,16 +22,39 @@ var ball = {
     dx:3,
     dy:3
 }
+function preload() {
 
-function setup(){
-  var canvas =  createCanvas(700,600);
+}
+function setup() {
+canvas=createCanvas(700,450);
+canvas.parent('canvas');
+
+video=createCapture(VIDEO);
+video.size(700,450);
+video.hide();
+
+posenet = ml5.poseNet(video, modelLoaded);
+posenet.on('pose',gotPoses);
+}
+function modelLoaded() {
+  console.log("Model is Loaded!");
+}
+function gotPoses(results) {
+  if(results.length> 0){
+    rwristX = results[0].pose.rightWrist.x;
+    rwristY =results[0].pose.rightWrist.y ;
+    console.log("Right Wrist X = " + rwristX + " Right Wrist Y " +rwristY);
+
+    score1 = results[0].pose.keypoints[10].score;
+
+  }
 }
 
 
 function draw(){
-
+  
  background(0); 
-
+ image(video,0,0,700,450);
  fill("black");
  stroke("black");
  rect(680,0,20,700);
@@ -37,6 +62,12 @@ function draw(){
  fill("black");
  stroke("black");
  rect(0,0,20,700);
+
+ if(score1 > 0.2){
+  fill("red");
+  stroke("red");
+  circle(rwristX, rwristY, 20)
+ }
  
    //funtion paddleInCanvas call 
    paddleInCanvas();
@@ -164,22 +195,4 @@ function paddleInCanvas(){
   }  
 }
 
-function preload() {
 
-}
-function setup() {
-canvas=createCanvas(550,350);
-canvas.parent('canvas');
-
-video=createCapture(VIDEO);
-video.size(550,350);
-video.hide();
-
-posenet = ml5.poseNet(video, modelLoaded);
-}
-function modelLoaded() {
-  console.log("Model is Loaded!");
-}
-function draw() {
-image(video,0,0,550,350);
-}
